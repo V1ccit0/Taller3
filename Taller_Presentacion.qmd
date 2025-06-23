@@ -1,0 +1,74 @@
+---
+title: "Taller 3: Uso de Quarto, Reveal.js y Streamlit con MySQL"
+subtitle: "Visualización de consultas SQL en entornos industriales"
+author: "Vicente Belmar Otárola"
+date: "23-06-2025"
+format: 
+  revealjs:
+    theme: dracula
+    slide-number: true
+    transition: slide
+    thebe: true
+jupyter: python3
+execute:
+  echo: true
+  eval: false
+  freeze: auto
+---
+
+```{=html}
+<script src="https://unpkg.com/thebelab@0.5.1/lib/index.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    thebelab.bootstrap();
+  });
+</script>
+```
+
+# Introducción
+
+Durante la sesión, veremos el uso de **Quarto**, **Reveal.js** y **Streamlit** todo esto pensando en las conexiones a **bases de datos MySQL**.
+
+---
+
+## ¿Qué es Quarto?
+
+Herramienta para crear documentos, dashboards y presentaciones compatibles con Python y R.
+
+---
+
+## ¿Qué es Reveal.js?
+
+Framework de presentaciones HTML con celdas ejecutables.
+
+```{python}
+#| thebe: true
+print("Hola desde Quarto + Reveal.js!")
+```
+
+---
+
+## Conexión a MySQL
+
+```{python}
+#| thebe: true
+import mysql.connector
+conexion = mysql.connector.connect(
+    host="localhost", port=3300,
+    user="VichoBL", password="Vibo2511*",
+    database="ANFP"
+)
+cursor = conexion.cursor()
+cursor.execute("SELECT * FROM gol LIMIT 3")
+for fila in cursor.fetchall():
+    print(fila)
+conexion.close()
+```
+
+---
+
+## ¡Vamos a la app web!
+
+```bash
+streamlit run app_taller.py
+```
